@@ -9,6 +9,7 @@ import math
 
 import numpy as np
 import pandas as pd
+import talib
 
 
 class IndicatorMixin:
@@ -63,7 +64,7 @@ def _sma(series, periods: int, fillna: bool = False):
 
 def _ema(series, periods: int, fillna: bool = False):
     min_periods = 0 if fillna else periods
-    return series.ewm(span=periods, min_periods=min_periods, adjust=False).mean()
+    return talib.EMA(series, timeperiod=periods)
 
 
 def _get_min_max(series1: pd.Series, series2: pd.Series, function: str = "min"):
